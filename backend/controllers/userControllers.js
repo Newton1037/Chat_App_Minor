@@ -43,7 +43,7 @@ const authUser = asyncHandler(async (req,res) => {
 
     const { email , password } = req.body
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne( {email} )
 
     if(user && (await user.matchPassword(password))) {
 
@@ -61,5 +61,20 @@ const authUser = asyncHandler(async (req,res) => {
     
 })
 
-module.exports = { registerUser , authUser }
+const allUser = asyncHandler (async (req,res) => {
+   
+    const keyword = req.query.search 
+    ? 
+       { $or: 
+        [ { name: {$regex: req.query.search , $options: "i"} }, 
+          { email: {$regex: req.query.search , $options: "i"} },
+        ] 
+       } 
+    : {}
+
+    const Users = await User.find(keyword).find({_id: {$ne: req.user._id} })
+    res.send(Users)
+})
+
+module.exports = { registerUser , authUser , allUser }
 
