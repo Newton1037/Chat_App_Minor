@@ -7,9 +7,11 @@ const UserModel = mongoose.Schema(
        email: {type: String , required: true , unique: true} , 
        password: {type: String , required: true} , 
        pic: {type: String , 
+             required: true,
              default: 
               "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
             } , 
+      
     },
     {
        timestamps: true , 
@@ -30,6 +32,6 @@ UserModel.pre("save" , async function (next) {
    this.password = await bcrypt.hash(this.password , salt)
 })
 
-const User = mongoose.model("Chat" , UserModel)
+const User = mongoose.model("User" , UserModel)
 
 module.exports = User

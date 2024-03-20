@@ -2,9 +2,9 @@ const mongoose = require("mongoose")
 
 const messageModel = mongoose.Schema(
     {
-       senders: {type: mongoose.Schema.Types.ObjectId , ref: "User"} , 
+       sender: {type: mongoose.Schema.Types.ObjectId , ref: "User"} , 
        content: {type: mongoose.Schema.Types.ObjectId , trim: true} ,
-       chat: {type: mongoose.Schema.Types.ObjectId , ref: "User"} ,
+       chat: {type: mongoose.Schema.Types.ObjectId , ref: "Chat"} ,
     } ,
     {
         timestamps: true , 
